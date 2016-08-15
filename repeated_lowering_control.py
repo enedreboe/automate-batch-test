@@ -292,14 +292,15 @@ class WeatherWindow():
 # %%
 
 
-def tp_start_DNVH103(hs):
+def tp_start_DNVH103(hs, alpha_factor=0.95):
     """Start Tp per Hs - JONSWAP spectrum.
     Returns the starting Tp as recommended by DNV-RP-H103 and OS-C205.
     Gamma is assumed 5 - which is the case for low Tp.
     Tp is rounded to the closest integer.
+    Alpha factor taken as input to ensure worst Hs is captured. Default value 0.95.
     """
     if hs < 0.1: return 1.0
-    return round(11*sqrt(hs/9.8), 0)
+    return round(11*sqrt(hs*alpha_factor/9.8), 0)
 
 
 def jonswap_gamma_DNVH103(hs, tp):
